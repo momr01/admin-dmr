@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --primary: 251, 186, 0;
+  --bg: #151c2c;
+  --bgSoft: #182237;
+  --text: white;
+  --textSoft: #b7bac1;
+}
+
+@font-face {
+  font-family: "PoppinsRegular";
+  src: url("../../assets/fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CodecProBold";
+  src: url("../../assets/fonts/Codec-Pro-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  @apply m-0 p-0 box-border;
+  font-family: "PoppinsRegular", sans-serif;
+
+  /* Para Firefox */
+  scrollbar-width: thin; /* Ancho de la scrollbar más delgado */
+  /* scrollbar-color: #4f46e5 #1e3a8a; Color del thumb y del track en Firefox */
+  scrollbar-color: #1e3a8a var(--bg);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* Scrollbar para navegadores basados en WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Track de la scrollbar (fondo de la barra) */
+::-webkit-scrollbar-track {
+  background-color: #1e3a8a; /* Color de fondo (azul marino) */
+}
+
+/* Thumb de la scrollbar (parte móvil) */
+::-webkit-scrollbar-thumb {
+  background-color: #4f46e5; /* Color del thumb (más claro que el fondo) */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Opcional: Cambia el color al pasar el mouse por encima */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #3730a3; /* Color más oscuro al hacer hover */
+}
