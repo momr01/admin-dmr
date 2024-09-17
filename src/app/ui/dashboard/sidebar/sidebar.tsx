@@ -1,21 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./sidebar.module.css";
-import {
-  MdDashboard,
-  MdSupervisedUserCircle,
-  MdShoppingBag,
-  MdAttachMoney,
-  MdWork,
-  MdAnalytics,
-  MdPeople,
-  MdOutlineSettings,
-  MdHelpCenter,
-  MdLogout,
-} from "react-icons/md";
+import { MdDashboard, MdLogout } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
-import { signOut } from "next-auth/react";
-import Logout from "../logout/logout";
+import { handleSignOut } from "@/lib/actions";
+import Swal from "sweetalert2";
+import SidebarHeader from "./header/sidebarHeader";
+import { useSession } from "next-auth/react";
 
 const menuItems = [
   {
@@ -24,115 +15,45 @@ const menuItems = [
     icon: <MdDashboard />,
   },
   { title: "Mensajes", path: "/dashboard/messages", icon: <MdDashboard /> },
-
-  // {
-  //   title: "Pages",
-  //   list: [
-  //     {
-  //       title: "Dashboard",
-  //       path: "/dashboard",
-  //       icon: <MdDashboard />,
-  //     },
-  //     {
-  //       title: "Users",
-  //       path: "/dashboard/users",
-  //       icon: <MdSupervisedUserCircle />,
-  //     },
-  //     {
-  //       title: "Products",
-  //       path: "/dashboard/products",
-  //       icon: <MdShoppingBag />,
-  //     },
-  //     {
-  //       title: "Transactions",
-  //       path: "/dashboard/transactions",
-  //       icon: <MdAttachMoney />,
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "Analytics",
-  //   list: [
-  //     {
-  //       title: "Revenue",
-  //       path: "/dashboard/revenue",
-  //       icon: <MdWork />,
-  //     },
-  //     {
-  //       title: "Reports",
-  //       path: "/dashboard/reports",
-  //       icon: <MdAnalytics />,
-  //     },
-  //     {
-  //       title: "Teams",
-  //       path: "/dashboard/teams",
-  //       icon: <MdPeople />,
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "User",
-  //   list: [
-  //     {
-  //       title: "Settings",
-  //       path: "/dashboard/settings",
-  //       icon: <MdOutlineSettings />,
-  //     },
-  //     {
-  //       title: "Help",
-  //       path: "/dashboard/help",
-  //       icon: <MdHelpCenter />,
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "User",
-  //   list: [
-  //     {
-  //       title: "Settings",
-  //       path: "/dashboard/settings",
-  //       icon: <MdOutlineSettings />,
-  //     },
-  //     {
-  //       title: "Help",
-  //       path: "/dashboard/help",
-  //       icon: <MdHelpCenter />,
-  //     },
-  //   ],
-  // },
-  // {
-  //   title: "User",
-  //   list: [
-  //     {
-  //       title: "Settings",
-  //       path: "/dashboard/settings",
-  //       icon: <MdOutlineSettings />,
-  //     },
-  //     {
-  //       title: "Help",
-  //       path: "/dashboard/help",
-  //       icon: <MdHelpCenter />,
-  //     },
-  //   ],
-  // },
 ];
 
-const Sidebar = ({
-  isOpen,
-  setIsOpen,
-}: {
+interface SidebarProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  //const session = await auth();
-  // const [isOpen, setIsOpen] = useState(true);
+}
+
+const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
+  // const session = await auth();
 
   console.log(isOpen);
+  // console.log(session);
+  const { data, status } = useSession();
+  console.log(status)
 
   const userName = "Daniela Elizabeth Montaña Rojas";
   const firstLetter = userName[0].toUpperCase();
 
   console.log(firstLetter);
+
+  const signOut = async () => {
+    // await signOut();
+    Swal.fire({
+      icon: "question",
+      title: "Cerrar Sesión",
+      text: "Desea cerrar sesión?",
+      confirmButtonText: "Salir",
+      confirmButtonColor: "green",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      cancelButtonColor: "gray",
+      allowOutsideClick: false,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        handleSignOut();
+      }
+    });
+    //
+  };
 
   return (
     // <div className={`${isOpen ? "flex-1" : "w-24"} p-5 bg-yellow-700 overflow-y-scroll transition duration-500 ease-in-out`}>
@@ -152,7 +73,7 @@ const Sidebar = ({
         <div className={`${styles.user} ${!isOpen && styles.userFirstLetter}`}>
           <div className={styles.userDetail}>
             <span
-              // className={`${isOpen ? styles.username : styles.usernameLetter}`}
+             
               className={styles.username}
             >
               {isOpen ? userName : firstLetter}
@@ -160,6 +81,7 @@ const Sidebar = ({
             {isOpen && <span className={styles.userTitle}>Administrador</span>}
           </div>
         </div>
+        {/* <SidebarHeader isOpen={isOpen} /> */}
         <ul className={styles.list}>
           {menuItems.map((cat) => (
             <li key={cat.title}>
@@ -178,13 +100,12 @@ const Sidebar = ({
           await signOut();
         }}
         > */}
+        <form action={signOut}>
           <button className={styles.logout}>
             <MdLogout />
-            <span className={`${isOpen ? "block" : "hidden"}`} >
-            Logout
-            </span>
-           
+            <span className={`${isOpen ? "block" : "hidden"}`}>Logout</span>
           </button>
+        </form>
         {/* </form> */}
       </div>
     </div>

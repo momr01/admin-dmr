@@ -1,6 +1,7 @@
 "use server";
-import { signIn } from "@/app/auth/auth";
+import { signIn, signOut } from "@/app/auth/auth";
 
+/*8
 export const authenticate = async (prevState: any, formData: FormData) => {
   const { email, password } = Object.fromEntries(formData);
 
@@ -22,4 +23,26 @@ export const authenticate = async (prevState: any, formData: FormData) => {
 
     throw err;
   }
+};*/
+
+export const authenticate = async (prevState: any, formData: FormData) => {
+  const { email, password } = Object.fromEntries(formData);
+
+  try {
+    await signIn("credentials", { email, password });
+    // if (!result?.ok) {
+    //   throw new Error("Wrong Credentials");
+    // }
+   // return true;
+  } catch (err: any) {
+    if (err?.type?.includes("CredentialsSignin")) {
+       return "Wrong Credentials";
+      //return false;
+    }
+    throw err;
+  }
+};
+
+export const handleSignOut = async () => {
+  await signOut();
 };

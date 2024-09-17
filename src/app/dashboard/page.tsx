@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import { auth } from "../auth/auth";
 
-const DashboardPage = () => {
-  return (
-    <div>DashboardPage</div>
-  )
-}
+const DashboardPage = async () => {
+  const session = await auth();
 
-export default DashboardPage
+ // console.log(session);
+
+  return <div>DashboardPage</div>;
+};
+
+export default DashboardPage;

@@ -5,12 +5,11 @@ import Swal from "sweetalert2";
 import { Button, Label, Spinner, TextInput } from "flowbite-react";
 import { customThemeBtn, customThemeInput } from "./signInCustomTheme";
 import { authenticate } from "@/lib/actions";
-import { useFormState } from "react-dom";
 
 const SignInForm = () => {
-  const [state, formAction] = useFormState(authenticate, undefined);
   // Estado para manejar el loading
   const [loading, setLoading] = useState(false);
+
   // Estados para inputs y errores
   const [formData, setFormData] = useState({
     email: "",
@@ -69,70 +68,51 @@ const SignInForm = () => {
     }
   };
 
+  const errorAlert = () => {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: "No fue posible iniciar sesión. Por favor, intenta nuevamente más tarde.",
+      confirmButtonText: "Volver",
+      confirmButtonColor: "gray",
+      allowOutsideClick: false,
+    });
+  };
+
   // Manejador del submit
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Si el formulario es válido, enviar los datos
-      sendVerifyData();
+      await sendDataToServer();
     }
   };
 
-  const sendVerifyData = async () => {
-    setLoading(true); // Activa el estado de "loading"
+  const sendDataToServer = async () => {
+    setLoading(true); // Activar loading
 
-    // Crear el objeto FormData para enviar los datos
     const formDataNew = new FormData();
     formDataNew.append("email", formData.email);
     formDataNew.append("password", formData.password);
 
     try {
-      // Llamar a la función `sendContactForm` usando `use server`
-      //const response = await sendContactForm(formDataNew);
-      // const response = {
-      //   status: "error",
-      //   message: "nathing",
-      // };
-      const response = await authenticate(undefined, formDataNew);
-      console.log(response)
+      const result = await authenticate(undefined, formDataNew);
 
-      // if (response.status === "success") {
-      //   Swal.fire({
-      //     icon: "success",
-      //     title: "Mensaje enviado.",
-      //     text: "Muchas gracias por tu interés. En breve, responderé tu consulta.",
-      //     confirmButtonText: "Volver",
-      //     confirmButtonColor: "gray",
-      //     allowOutsideClick: false,
-      //   });
-
-      //   // Limpiar los campos del formulario
-      //   setFormData({
-      //     email: "",
-      //     password: "",
-      //   });
-      // } else {
-      //   throw new Error(response.message);
-      // }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No fue posible iniciar sesión. Por favor, intenta nuevamente más tarde.",
-        confirmButtonText: "Volver",
-        confirmButtonColor: "gray",
-        allowOutsideClick: false,
-      });
-    } finally {
-      setLoading(false); // Desactiva el estado de "loading"
+      if (result?.includes("Credentials")) {
+        setLoading(false);
+        errorAlert();
+      }
+    } catch (err) {
+      errorAlert();
     }
   };
 
   return (
     <div className={styles.container}>
-      {/* <form onSubmit={handleSubmit} className={styles.form}> */}
-      <form  action={formAction}  className={styles.form}>
+      <form
+        onSubmit={handleSubmit}
+        className={styles.form}
+      >
         <div>
           <div className={styles.labelContainer}>
             <Label htmlFor="email" value="Tu email:" className={styles.label} />
@@ -167,7 +147,9 @@ const SignInForm = () => {
             value={formData.password}
             onChange={handleInputChange}
           />
-          {errors.password && <p className={styles.errorText}>{errors.password}</p>}
+          {errors.password && (
+            <p className={styles.errorText}>{errors.password}</p>
+          )}
         </div>
         <span className={styles.mandatoryText}>
           <span className={styles.mandatoryStar}>*</span> Todos los campos son
