@@ -34,7 +34,7 @@ const Pagination = ({ count }: { count: number }) => {
         disabled={!hasPrev}
         onClick={() => handleChangePage("prev")}
       >
-        <div className="border border-black p-2 rounded-md">
+        <div className={`order border-bluePrimary  p-2 rounded-md ${!hasPrev ? "bg-gray-300" : "bg-bluePrimary hover:bg-blue-700" } `}>
         <GrLinkPrevious size={20}  />
         </div>
      
@@ -44,7 +44,7 @@ const Pagination = ({ count }: { count: number }) => {
         disabled={!hasNext}
         onClick={() => handleChangePage("next")}
       >
-         <div className="border border-black p-2 rounded-md">
+          <div className={`order border-bluePrimary  p-2 rounded-md ${!hasNext ? "bg-gray-300" : "bg-bluePrimary hover:bg-blue-700" } `}>
         <GrLinkNext size={20}  />
         </div>
       </button>

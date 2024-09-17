@@ -14,6 +14,8 @@ import {
   MdLogout,
 } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
+import { signOut } from "next-auth/react";
+import Logout from "../logout/logout";
 
 const menuItems = [
   {
@@ -127,6 +129,11 @@ const Sidebar = ({
 
   console.log(isOpen);
 
+  const userName = "Daniela Elizabeth Montaña Rojas";
+  const firstLetter = userName[0].toUpperCase();
+
+  console.log(firstLetter);
+
   return (
     // <div className={`${isOpen ? "flex-1" : "w-24"} p-5 bg-yellow-700 overflow-y-scroll transition duration-500 ease-in-out`}>
     <div
@@ -141,11 +148,16 @@ const Sidebar = ({
       // }}
     >
       <div className={styles.container}>
-        <button onClick={() => setIsOpen(!isOpen)}>Abrir</button>
-        <div className={styles.user}>
+        {/* <button onClick={() => setIsOpen(!isOpen)}>Abrir</button> */}
+        <div className={`${styles.user} ${!isOpen && styles.userFirstLetter}`}>
           <div className={styles.userDetail}>
-            <span className={styles.username}>{"hola"}</span>
-            <span className={styles.userTitle}>Administrator</span>
+            <span
+              // className={`${isOpen ? styles.username : styles.usernameLetter}`}
+              className={styles.username}
+            >
+              {isOpen ? userName : firstLetter}
+            </span>
+            {isOpen && <span className={styles.userTitle}>Administrador</span>}
           </div>
         </div>
         <ul className={styles.list}>
@@ -159,17 +171,21 @@ const Sidebar = ({
             </li>
           ))}
         </ul>
-        <form
-        // action={async () => {
-        //   "use server";
-        //   await signOut();
-        // }}
-        >
-          {/* <button className={styles.logout}>
+        {/* <Logout /> */}
+        {/* <form
+        action={async () => {
+          "use server";
+          await signOut();
+        }}
+        > */}
+          <button className={styles.logout}>
             <MdLogout />
+            <span className={`${isOpen ? "block" : "hidden"}`} >
             Logout
-          </button> */}
-        </form>
+            </span>
+           
+          </button>
+        {/* </form> */}
       </div>
     </div>
   );

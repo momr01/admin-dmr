@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import Sidebar from "../ui/dashboard/sidebar/sidebar";
 import Navbar from "../ui/dashboard/navbar/navbar";
@@ -25,5 +25,3 @@ const Layout = ({
 };
 
 export default Layout;
-
-

@@ -1,7 +1,7 @@
 import { Message } from "@/models/message";
 import { connectToDB } from "./db";
 
-interface MessageDocument extends Document {
+export interface MessageDocument extends Document {
     id: string;
     name: string;
     email: string;
