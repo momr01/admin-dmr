@@ -8,7 +8,7 @@ export const authConfig = {
       signIn: "/",
     },
     callbacks: {
-      authorized({ auth, request }: {auth: Session | null ; request: NextRequest}) {
+      authorized({ auth, request }: {auth: Session ; request: NextRequest}) {
         const isLoggedIn = auth?.user;
         const isOnDashboard = request.nextUrl.pathname.startsWith("/dashboard");
         if (isOnDashboard) {

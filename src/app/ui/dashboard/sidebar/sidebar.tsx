@@ -58,8 +58,8 @@ const Sidebar = ({ isOpen }: SidebarProps) => {
     <div
       className={`${
         isOpen
-          ? "px-2 w-[80%] md:w-1/5 md:max-w-full"
-          : "px-1 hidden md:block max-w-24"
+          ? "px-2 min-w-[20%] max-w-[20%]"
+          : "px-1 hidden md:block max-w-[8%]"
       } py-5 overflow-y-scroll transition-transform duration-900 ease-in-out absolute h-full md:relative bg-bluePrimary z-10`}
       // style={{
       //  maxWidth: isOpen ? "100%" : "6rem", // Equivale a 'w-24'

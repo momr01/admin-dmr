@@ -62,11 +62,11 @@ const login = async (credentials: Credentials): Promise<ExtendedUser> => {
 
     if (!isPasswordCorrect) throw new Error("Wrong credentials!");
 
-   // return user;
-   return {
-    email: user.email,
-    img: user.img || "/default-image.png", // Asegurarse de que 'img' está presente
-  } as ExtendedUser;
+    // return user;
+    return {
+      email: user.email,
+      img: user.img || "/default-image.png", // Asegurarse de que 'img' está presente
+    } as ExtendedUser;
   } catch (err) {
     console.log(err);
     throw new Error("Failed to login!");
@@ -85,11 +85,12 @@ export const { signIn, signOut, auth } = NextAuth({
           const typedCredentials: Credentials = {
             email: credentials.email as string,
             password: credentials.password as string,
-         //  img: ""
+            //  img: ""
           };
 
           try {
             const user = await login(typedCredentials);
+            console.log(user);
             return user as ExtendedUser;
           } catch (err) {
             return null;
