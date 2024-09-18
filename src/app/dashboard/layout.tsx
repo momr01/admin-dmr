@@ -29,7 +29,7 @@ const Layout = ({
       bg-white"> */}
        <div className={`p-0 md:p-5 
    flex-[4] 
-      bg-white  ${isOpen ? "max-w-[80%]" : "max-w-[92%]"}`}>
+      bg-white max-w-full  ${isOpen ? "lg:max-w-[80%]" : "lg:max-w-[92%]"}`}>
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
 
         {children}
