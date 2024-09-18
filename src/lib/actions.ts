@@ -24,8 +24,19 @@ export const authenticate = async (prevState: any, formData: FormData) => {
     throw err;
   }
 };*/
+interface FormState {
+  email?: string;
+  password?: string;
+}
 
-export const authenticate = async (prevState: any, formData: FormData) => {
+interface AuthError {
+  type: string;
+  kind: string;
+  code: string;
+}
+
+
+export const authenticate = async (prevState: FormState, formData: FormData) => {
   const { email, password } = Object.fromEntries(formData);
 
   try {
@@ -34,8 +45,11 @@ export const authenticate = async (prevState: any, formData: FormData) => {
     //   throw new Error("Wrong Credentials");
     // }
    // return true;
-  } catch (err: any) {
-    if (err?.type?.includes("CredentialsSignin")) {
+  } catch (err: unknown) {
+    console.log(err)
+
+    const authError = err as AuthError;
+    if (authError?.type?.includes("CredentialsSignin")) {
        return "Wrong Credentials";
       //return false;
     }

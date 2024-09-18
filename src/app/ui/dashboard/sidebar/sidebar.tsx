@@ -1,16 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./sidebar.module.css";
 import { MdDashboard, MdLogout } from "react-icons/md";
 import MenuLink from "./menuLink/menuLink";
 import { handleSignOut } from "@/lib/actions";
 import Swal from "sweetalert2";
-import SidebarHeader from "./header/sidebarHeader";
-import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { logoCompleteWhite } from "@/assets/img/logo/imgLogo";
 
 const menuItems = [
   {
-    title: "Dashboard",
+    title: "Tablero",
     path: "/dashboard",
     icon: <MdDashboard />,
   },
@@ -19,16 +19,14 @@ const menuItems = [
 
 interface SidebarProps {
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+//  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
+const Sidebar = ({ isOpen }: SidebarProps) => {
   // const session = await auth();
 
-  console.log(isOpen);
+
   // console.log(session);
-  const { data, status } = useSession();
-  console.log(status)
 
   const userName = "Daniela Elizabeth Montaña Rojas";
   const firstLetter = userName[0].toUpperCase();
@@ -62,7 +60,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
         isOpen
           ? "px-2 w-[80%] md:w-1/5 md:max-w-full"
           : "px-1 hidden md:block max-w-24"
-      } py-5 overflow-y-scroll transition-all duration-900 ease-in-out absolute h-full md:relative`}
+      } py-5 overflow-y-scroll transition-transform duration-900 ease-in-out absolute h-full md:relative bg-bluePrimary z-10`}
       // style={{
       //  maxWidth: isOpen ? "100%" : "6rem", // Equivale a 'w-24'
       // flex: isOpen ? 1 : "initial",
@@ -70,7 +68,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
     >
       <div className={styles.container}>
         {/* <button onClick={() => setIsOpen(!isOpen)}>Abrir</button> */}
-        <div className={`${styles.user} ${!isOpen && styles.userFirstLetter}`}>
+        {/* <div className={`${styles.user} ${!isOpen && styles.userFirstLetter}`}>
           <div className={styles.userDetail}>
             <span
              
@@ -80,6 +78,13 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
             </span>
             {isOpen && <span className={styles.userTitle}>Administrador</span>}
           </div>
+        </div> */}
+        <div className="flex justify-center mb-10">
+          <Image
+            src={logoCompleteWhite}
+            alt="logo"
+            className={`${isOpen ? "w-1/2" : "w-full"}`}
+          />
         </div>
         {/* <SidebarHeader isOpen={isOpen} /> */}
         <ul className={styles.list}>
@@ -101,9 +106,13 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
         }}
         > */}
         <form action={signOut}>
-          <button className={styles.logout}>
+          <button
+            className={`${styles.logout} ${!isOpen && " flex justify-center"}`}
+          >
             <MdLogout />
-            <span className={`${isOpen ? "block" : "hidden"}`}>Logout</span>
+            <span className={`${isOpen ? "block" : "hidden"}`}>
+              Cerrar Sesión
+            </span>
           </button>
         </form>
         {/* </form> */}

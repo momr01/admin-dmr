@@ -96,7 +96,7 @@ const SignInForm = () => {
     formDataNew.append("password", formData.password);
 
     try {
-      const result = await authenticate(undefined, formDataNew);
+      const result = await authenticate({}, formDataNew);
 
       if (result?.includes("Credentials")) {
         setLoading(false);

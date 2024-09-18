@@ -1,3 +1,6 @@
+import { Session } from "next-auth";
+import { NextRequest } from "next/server";
+
 export const authConfig = {
     site: process.env.AUTH_URL,
     providers:[],
@@ -5,7 +8,7 @@ export const authConfig = {
       signIn: "/",
     },
     callbacks: {
-      authorized({ auth, request }: {auth:any, request: any}) {
+      authorized({ auth, request }: {auth: Session | null ; request: NextRequest}) {
         const isLoggedIn = auth?.user;
         const isOnDashboard = request.nextUrl.pathname.startsWith("/dashboard");
         if (isOnDashboard) {

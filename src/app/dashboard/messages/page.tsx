@@ -1,7 +1,6 @@
 import { fetchMessages } from "@/lib/data";
 import styles from "../../ui/dashboard/messages/messages.module.css";
 import React from "react";
-import Link from "next/link";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 
 interface SearchParams {

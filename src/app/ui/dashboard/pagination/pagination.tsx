@@ -1,6 +1,5 @@
 "use client";
 
-import { ImPrevious } from "react-icons/im";
 import styles from "./pagination.module.css";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
