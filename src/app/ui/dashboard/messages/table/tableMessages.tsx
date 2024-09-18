@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "../messages.module.css";
-import { Button, Modal } from "flowbite-react";
+//import { Button, Modal } from "flowbite-react";
 import ModalMessage from "../modal/modalMessage";
 
 interface PlainMessage {
@@ -17,7 +17,7 @@ interface PlainMessage {
 const TableMessages = ({ messages }: { messages: PlainMessage[] }) => {
   const [openModal, setOpenModal] = useState(false);
 
-  const [isComponentVisible, setIsComponentVisible] = useState(false);
+ // const [isComponentVisible, setIsComponentVisible] = useState(false);
   const [dynamicProps, setDynamicProps] = useState(
  {
     message: {
