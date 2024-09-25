@@ -485,7 +485,7 @@ const TableMessages = ({
       dataIndex: "content",
       ellipsis: true,
       // width: '10%'
-      render: (content) => truncateString(content, 50),
+      render: (content) => truncateString(content, 20),
     },
     //   {
     //     title: 'Fecha de creación',
@@ -500,8 +500,8 @@ const TableMessages = ({
       dataIndex: "createdAt",
       key: "createdAt",
       width: 150, // Ancho fijo
-    //   render: (createdAt) => createdAt?.toString().slice(4, 16),
-    render: (createdAt) => new Date(createdAt).toLocaleString(),
+      //   render: (createdAt) => createdAt?.toString().slice(4, 16),
+      render: (createdAt) => new Date(createdAt).toLocaleString(),
       sorter: (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     },
@@ -537,6 +537,11 @@ const TableMessages = ({
           scroll={{
             y: 700,
             x: isMobile ? "max-content" : undefined, // 'max-content' solo en dispositivos móviles
+          }}
+          locale={{
+            cancelSort: "Haz click para cancelar la ordenación", // Texto personalizado
+            triggerAsc: "Haz click para ordenar en forma ascendente",
+            triggerDesc: "Haz click para ordenar en forma descendente",
           }}
         />
       ) : (
