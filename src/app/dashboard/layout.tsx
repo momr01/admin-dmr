@@ -7,14 +7,14 @@ import React, { useState } from "react";
 import { MdDashboard, MdLogout, MdMessage } from "react-icons/md";
 import Swal from "sweetalert2";
 
-const menuItems = [
-  {
-    title: "Tablero",
-    path: "/dashboard",
-    icon: <MdDashboard />,
-  },
-  { title: "Mensajes", path: "/dashboard/messages", icon: <MdDashboard /> },
-];
+// const menuItems = [
+//   {
+//     title: "Tablero",
+//     path: "/dashboard",
+//     icon: <MdDashboard />,
+//   },
+//   { title: "Mensajes", path: "/dashboard/messages", icon: <MdDashboard /> },
+// ];
 
 const Layout = ({
   children,
