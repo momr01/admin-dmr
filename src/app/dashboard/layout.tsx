@@ -14,9 +14,7 @@ const Layout = ({
   return (
     <>
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
-
       <Sidebar isOpen={isOpen} />
-
       <div className="px-4 pt-24 sm:ml-64 bg-white h-screen">{children}</div>
     </>
   );

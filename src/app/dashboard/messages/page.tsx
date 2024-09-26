@@ -1,35 +1,15 @@
-import { fetchMessages } from "@/lib/data";
-import styles from "../../ui/dashboard/messages/messages.module.css";
-import React, { lazy, Suspense } from "react";
-import { SearchParams } from "@/interfaces/searchParams";
-const TableMessages = lazy(
-  () => import("@/app/ui/dashboard/messages/table/tableMessages")
-);
+import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
 
-const MessagesPage = async ({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) => {
-  const q = searchParams?.q || "";
-  const { count, messages } = await fetchMessages(q);
+const Messages = dynamic(() => import("@/app/ui/dashboard/messages/messages"), {
+  suspense: true,
+});
 
-  const plainMessages = messages.map((message) => ({
-    id: message.id,
-    name: message.name,
-    email: message.email,
-    phone: message.phone,
-    content: message.content,
-    createdAt: message.createdAt,
-  }));
-
+const MessagesPage = () => {
   return (
-    <div>
-      <div className={styles.top}></div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <TableMessages messages={plainMessages} count={count} />
-      </Suspense>
-    </div>
+    <Suspense fallback={<div>Cargandi pues</div>}>
+      <Messages />
+    </Suspense>
   );
 };
 
