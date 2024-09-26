@@ -1,0 +1,8 @@
+.page {
+  @apply bg-white w-[100vw] h-[100vh] text-black;
+}
+
+.container {
+  @apply h-full;
+  @apply lg:grid lg:grid-cols-2;
+}

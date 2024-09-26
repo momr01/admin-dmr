@@ -34,17 +34,11 @@ html {
 * {
   @apply m-0 p-0 box-border;
   font-family: "PoppinsRegular", sans-serif;
-
   /* Para Firefox */
   scrollbar-width: thin; /* Ancho de la scrollbar más delgado */
   /* scrollbar-color: #4f46e5 #1e3a8a; Color del thumb y del track en Firefox */
   scrollbar-color: #1e3a8a var(--bg);
 }
-
-/* body {
-  background-color: var(--bg);
-  color: var(--text);
-} */
 
 /* Scrollbar para navegadores basados en WebKit (Chrome, Safari) */
 ::-webkit-scrollbar {

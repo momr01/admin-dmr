@@ -1,0 +1,5 @@
+.container {
+  @apply relative w-full overflow-hidden h-[100vh] hidden;
+  @apply lg:block;
+  /* @apply lg:h-[100vh]; */
+}

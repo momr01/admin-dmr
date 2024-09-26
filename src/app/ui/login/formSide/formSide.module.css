@@ -1,0 +1,24 @@
+.container {
+  @apply flex justify-center h-full pt-24;
+  @apply lg:items-center lg:pt-0;
+}
+
+.contentDiv {
+  @apply w-[90%];
+  @apply lg:w-1/2 lg:mx-auto;
+}
+
+.logoContainer {
+  @apply mb-16;
+  @apply lg:mb-10;
+}
+
+.logo {
+  @apply w-[60%] mx-auto;
+  @apply lg:w-[50%];
+}
+
+.title {
+  @apply text-center mb-14  text-2xl;
+  @apply lg:mb-5;
+}

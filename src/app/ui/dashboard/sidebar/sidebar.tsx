@@ -1,44 +1,15 @@
-"use client";
-import React from "react";
-import styles from "./sidebar.module.css";
-import { MdDashboard, MdLogout } from "react-icons/md";
-import MenuLink from "./menuLink/menuLink";
 import { handleSignOut } from "@/lib/actions";
+import Link from "next/link";
+import React from "react";
+import { MdDashboard, MdLogout, MdMessage } from "react-icons/md";
 import Swal from "sweetalert2";
-import Image from "next/image";
-import { logoCompleteWhite } from "@/assets/img/logo/imgLogo";
 
-const menuItems = [
-  {
-    title: "Tablero",
-    path: "/dashboard",
-    icon: <MdDashboard />,
-  },
-  { title: "Mensajes", path: "/dashboard/messages", icon: <MdDashboard /> },
-];
-
-interface SidebarProps {
-  isOpen: boolean;
-//  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const Sidebar = ({ isOpen }: SidebarProps) => {
-  // const session = await auth();
-
-
-  // console.log(session);
-
-  const userName = "Daniela Elizabeth Montaña Rojas";
-  const firstLetter = userName[0].toUpperCase();
-
-  console.log(firstLetter);
-
+const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
   const signOut = async () => {
-    // await signOut();
     Swal.fire({
       icon: "question",
       title: "Cerrar Sesión",
-      text: "Desea cerrar sesión?",
+      text: "¿Desea cerrar sesión?",
       confirmButtonText: "Salir",
       confirmButtonColor: "green",
       showCancelButton: true,
@@ -50,74 +21,57 @@ const Sidebar = ({ isOpen }: SidebarProps) => {
         handleSignOut();
       }
     });
-    //
   };
 
+  const navItems = [
+    {
+      id: 1,
+      label: "Tablero",
+      href: "/dashboard",
+      icon: <MdDashboard size={20} />,
+    },
+  ];
+
   return (
-    // <div className={`${isOpen ? "flex-1" : "w-24"} p-5 bg-yellow-700 overflow-y-scroll transition duration-500 ease-in-out`}>
-    <div
-      className={`${
-        isOpen
-          ? "px-2 w-[80%] lg:min-w-[20%] lg:max-w-[20%]"
-          : "px-1 hidden md:block max-w-[8%]"
-      } py-5 overflow-y-scroll transition-transform duration-900 ease-in-out absolute h-full md:relative bg-bluePrimary z-10`}
-      // style={{
-      //  maxWidth: isOpen ? "100%" : "6rem", // Equivale a 'w-24'
-      // flex: isOpen ? 1 : "initial",
-      // }}
+    <aside
+      id="logo-sidebar"
+      className={`fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-blueSecondary border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+      aria-label="Sidebar"
     >
-      <div className={styles.container}>
-        {/* <button onClick={() => setIsOpen(!isOpen)}>Abrir</button> */}
-        {/* <div className={`${styles.user} ${!isOpen && styles.userFirstLetter}`}>
-          <div className={styles.userDetail}>
-            <span
-             
-              className={styles.username}
+      <div className="h-full px-3 pb-4 overflow-y-auto bg-blueSecondary dark:bg-gray-800">
+        <ul className="space-y-5 font-medium">
+          <li>
+            <Link
+              href="/dashboard"
+              className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-gray-800"
             >
-              {isOpen ? userName : firstLetter}
-            </span>
-            {isOpen && <span className={styles.userTitle}>Administrador</span>}
-          </div>
-        </div> */}
-        <div className="flex justify-center mb-10">
-          <Image
-            src={logoCompleteWhite}
-            alt="logo"
-            className={`${isOpen ? "w-1/2" : "w-full"}`}
-          />
-        </div>
-        {/* <SidebarHeader isOpen={isOpen} /> */}
-        <ul className={styles.list}>
-          {menuItems.map((cat) => (
-            <li key={cat.title}>
-              {/* <span className={styles.cat}>{cat.title}</span> */}
-              {/* {cat.list.map((item) => (
-                <MenuLink item={item} key={item.title} />
-              ))} */}
-              <MenuLink item={cat} key={cat.title} isOpen={isOpen} />
-            </li>
-          ))}
+              <MdDashboard size={20} />
+              <span className="ms-3">Tablero</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/dashboard/messages"
+              className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-gray-800"
+            >
+              <MdMessage size={20} />
+              <span className="ms-3">Mensajes</span>
+            </Link>
+          </li>
+          <li>
+            <button
+              onClick={signOut}
+              className="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group hover:text-gray-800 w-full"
+            >
+              <MdLogout size={20} />
+              <span className="ms-3">Cerrar Sesión</span>
+            </button>
+          </li>
         </ul>
-        {/* <Logout /> */}
-        {/* <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-        > */}
-        <form action={signOut}>
-          <button
-            className={`${styles.logout} ${!isOpen && " flex justify-center"}`}
-          >
-            <MdLogout />
-            <span className={`${isOpen ? "block" : "hidden"}`}>
-              Cerrar Sesión
-            </span>
-          </button>
-        </form>
-        {/* </form> */}
       </div>
-    </div>
+    </aside>
   );
 };
 
