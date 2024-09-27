@@ -1,7 +1,4 @@
 "use client";
-import { usePathname } from "next/navigation";
-import styles from "./navbar.module.css";
-import { GiHamburgerMenu } from "react-icons/gi";
 import Image from "next/image";
 import { logoWhite } from "@/assets/img/logo/imgLogo";
 
